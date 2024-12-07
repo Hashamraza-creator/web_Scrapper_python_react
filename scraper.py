@@ -50,5 +50,5 @@ def scrape_query(query, max_pages=20):
             continue
         products = parse_products(soup, scrape_date)
         all_products.extend(products)
-        time.sleep(random.uniform(1, 3))  # Avoid detection
+        time.sleep(random.uniform(1, 3))  
     return all_products

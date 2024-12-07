@@ -1,20 +1,18 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
 import os
+from flask import Flask, jsonify
+from flask_cors import CORS
 import json
 
 app = Flask(__name__)
-
-# Enable CORS for your React frontend (localhost:3000)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
-SCRAPED_DATA_DIR = "python-backend/outputs"  # Path where your JSON files are stored
+SCRAPED_DATA_DIR = os.path.join(os.path.dirname(__file__), 'outputs')
 
 @app.route('/api/scraped-data/<filename>', methods=['GET'])
 def get_scraped_data(filename):
-    # Construct the full file path dynamically using the filename parameter
     file_path = os.path.join(SCRAPED_DATA_DIR, f"{filename}.json")
-    
+    print(f"Looking for file at: {file_path}")
+
     if os.path.exists(file_path):
         with open(file_path, 'r') as file:
             data = json.load(file)
