@@ -4,7 +4,8 @@ from flask_cors import CORS
 import json
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "https://your-vercel-frontend-url.vercel.app"}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 
 
 SCRAPED_DATA_DIR = os.path.join(os.path.dirname(__file__), 'outputs')
