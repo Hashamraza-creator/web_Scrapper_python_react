@@ -1,23 +1,32 @@
-.App {
-  text-align: center;
-  margin: 20px;
+/* index.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-table {
-  margin-top: 20px;
-  width: 100%;
-  border-collapse: collapse;
+body {
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
-th, td {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: 10px;
 }
 
-th {
-  background-color: #f4f4f4;
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
-label {
-  font-size: 18px;
+button {
+  border: none;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
 }

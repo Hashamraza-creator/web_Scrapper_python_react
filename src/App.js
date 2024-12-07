@@ -1,34 +1,25 @@
-import React, { useState } from "react";
-import ScrapedData from "./components/ScrappedData";
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar'; // Ensure the correct path
+import HomePage from './components/homepage'; // Capitalize 'HomePage.js'
+import ScrappedData from './components/ScrappedData';
+import AboutPage from './components/AboutPage';
+import ContactUs from './components/ContactUs';
+import './App.css';
 
-function App() {
-  const [category, setCategory] = useState("cameras"); // Default category is cameras
-
-  const handleCategoryChange = (event) => {
-    setCategory(event.target.value);
-  };
-
+const App = () => {
   return (
-    <div className="App">
-      <h1>Scraped Data Viewer</h1>
-      <label>
-        Select Category:
-        <select value={category} onChange={handleCategoryChange}>
-          <option value="cameras">Cameras</option>
-          <option value="headphones">Headphones</option>
-          <option value="gaming_console">Gaming Consoles</option>
-          <option value="keyboards">Keyboards</option>
-          <option value="laptops">Laptops</option>
-          <option value="monitors">Monitors</option>
-          <option value="printers">Printers</option>
-          <option value="smartphones">Smartphones</option>
-          <option value="smartwatches">Smartwatches</option>
-          <option value="tablets">Tablets</option>
-        </select>
-      </label>
-      <ScrapedData category={category} />
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/products" element={<ScrappedData />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
