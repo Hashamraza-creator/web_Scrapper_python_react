@@ -4,8 +4,7 @@ from flask_cors import CORS
 import json
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
+CORS(app, resources={r"/api/*": {"origins": "https://web-scrapper-python-react.vercel.app"}})
 
 
 SCRAPED_DATA_DIR = os.path.join(os.path.dirname(__file__), 'outputs')
