@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "python-backend/app.py",
+        "use": "@vercel/python"
+      },
+      {
+        "src": "scraper-frontend/package.json",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "scraper-frontend/build" }
+      }
+    ],
+    "routes": [
+      { "src": "/api/(.*)", "dest": "python-backend/app.py" },
+      { "src": "/(.*)", "dest": "scraper-frontend/$1" }
+    ]
+  }
+  

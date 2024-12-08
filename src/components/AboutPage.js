@@ -17,9 +17,7 @@ const AboutPage = () => {
           data effortlessly through innovative scraping technologies.
         </p>
       </div>
-      <div className="about-image">
-        
-      </div>
+      
     </div>
   );
 };

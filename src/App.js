@@ -1,8 +1,8 @@
-// App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar'; // Ensure the correct path
-import HomePage from './components/homepage'; // Capitalize 'HomePage.js'
+import Navbar from './components/Navbar'; 
+import HomePage from './components/homepage';
 import ScrappedData from './components/ScrappedData';
 import AboutPage from './components/AboutPage';
 import ContactUs from './components/ContactUs';

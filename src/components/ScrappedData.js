@@ -2,22 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './ScrappedData.css';
 
 const ScrappedData = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState('cameras');
   const [isLoading, setIsLoading] = useState(false);
 
+  // Base API URL, switch between environments
+  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5000/api/scraped-data";
+
   const fetchData = (query) => {
     setIsLoading(true);
-    fetch(`http://127.0.0.1:5000/api/scraped-data/${query}`)
+    fetch(`${API_BASE_URL}/${query}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Error fetching data: ${response.statusText}`);
+          return response.json().then((err) => {
+            throw new Error(err.error || 'Unknown error occurred');
+          });
         }
         return response.json();
       })
       .then((data) => {
-        console.log('Fetched data:', data);
         setData(data);
         setError(null);
       })
@@ -36,10 +40,6 @@ const ScrappedData = () => {
   const handleQueryChange = (event) => {
     setQuery(event.target.value);
   };
-
-  if (error) {
-    return <div className="error-message">Error: {error}</div>;
-  }
 
   return (
     <div className="container">
@@ -62,7 +62,9 @@ const ScrappedData = () => {
 
       {isLoading ? (
         <div className="loading">Loading...</div>
-      ) : data ? (
+      ) : error ? (
+        <div className="error-message">Error: {error}</div>
+      ) : data.length > 0 ? (
         <div className="product-grid">
           {data.map((item, index) => (
             <div key={index} className="product-card">
