@@ -7,17 +7,13 @@ const ScrappedData = () => {
   const [query, setQuery] = useState('cameras');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Base API URL, switch between environments
-  const API_BASE_URL = process.env.REACT_APP_API_URL || "http://127.0.0.1:5000/api/scraped-data";
-
   const fetchData = (query) => {
     setIsLoading(true);
+    const API_BASE_URL = 'http://127.0.0.1:5000/api/scraped-data'; // Keep it inside fetchData
     fetch(`${API_BASE_URL}/${query}`)
       .then((response) => {
         if (!response.ok) {
-          return response.json().then((err) => {
-            throw new Error(err.error || 'Unknown error occurred');
-          });
+          throw new Error(`Error fetching data: ${response.statusText}`);
         }
         return response.json();
       })
