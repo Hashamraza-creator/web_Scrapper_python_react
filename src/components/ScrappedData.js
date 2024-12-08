@@ -9,8 +9,8 @@ const ScrappedData = () => {
 
   const fetchData = (query) => {
     setIsLoading(true);
-    const API_BASE_URL = 'http://127.0.0.1:5000/api/scraped-data'; // Keep it inside fetchData
-    fetch(`${API_BASE_URL}/${query}`)
+    const API_BASE_URL = 'https://web-scrapper-python-react-c4po.vercel.app'; // Make sure the URL is correct
+    fetch(`${API_BASE_URL}/api/scraped-data/${query}`) // Adjusted the URL here
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error fetching data: ${response.statusText}`);
