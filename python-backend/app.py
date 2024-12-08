@@ -1,25 +1,29 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
-import json
 
 app = Flask(__name__)
+
+# Allow requests from your Vercel frontend domain
 CORS(app, resources={r"/api/*": {"origins": "https://web-scrapper-python-react.vercel.app"}})
 
-
+# Directory containing scraped JSON files
 SCRAPED_DATA_DIR = os.path.join(os.path.dirname(__file__), 'outputs')
 
 @app.route('/api/scraped-data/<filename>', methods=['GET'])
 def get_scraped_data(filename):
-    file_path = os.path.join(SCRAPED_DATA_DIR, f"{filename}.json")
-    print(f"Looking for file at: {file_path}")
+    try:
+        # Ensure filename ends with .json
+        if not filename.endswith('.json'):
+            filename += '.json'
 
-    if os.path.exists(file_path):
-        with open(file_path, 'r') as file:
-            data = json.load(file)
-        return jsonify(data)
-    else:
-        return jsonify({"error": f"File {filename}.json not found"}), 404
+        # Send the JSON file from the output directory
+        return send_from_directory(SCRAPED_DATA_DIR, filename)
+    except FileNotFoundError:
+        return jsonify({"error": f"File {filename} not found"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Run the backend server on localhost
+    app.run(debug=True, port=5000)
